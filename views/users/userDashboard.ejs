@@ -1,0 +1,38 @@
+<!-- <div class="container">
+  <div class="id-holder">
+    <div class="image">
+      <img src="<%= user.profilepic %>" alt="profile pic" />
+    </div>
+    <h2><%=user.name %></h2>
+    <h2><%= user.surname %></h2>
+    <h2><%= user.email %></h2>
+    <h2><%= user.course %></h2>
+    <h2><%= user.semester %></h2>
+    <h2><%= user.rollno %></h2>
+  </div>
+</div> -->
+<div class="container">
+  <div class="id-card">
+    <div class="id-header">
+      <h1>Student ID Card</h1>
+    </div>
+
+    <div class="id-body">
+      <div class="id-photo">
+        <img src="<%= user.profilepic %>" alt="Profile Picture" />
+      </div>
+
+      <div class="id-info">
+        <p><strong>Name:</strong> <%= user.name %> <%= user.surname %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Course:</strong> <%= user.course %></p>
+        <p><strong>Semester:</strong> <%= user.semester %></p>
+        <p><strong>Roll No:</strong> <%= user.rollno %></p>
+      </div>
+    </div>
+
+    <div class="id-footer">
+      <p>College of Computer Science</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<!-- <div class="container">
+  <h1><%= user._id %></h1>
+  <h1><%= user.name %></h1>
+  <h1><%= user.surname %></h1>
+  <h1><%= user.status %></h1>
+  <form
+    action="/admin/statusapproved/<%= user._id %>?method=PATCH"
+    method="POST"
+  >
+    <button type="submit">approved</button>
+  </form>
+  <form
+    action="/admin/statusrejected/<%= user._id %>?method=PATCH"
+    method="POST"
+  >
+    <button type="submit">rejected</button>
+  </form>
+</div> -->
+
+<div class="container">
+  <div class="user-card">
+    <div class="user-header">
+      <img
+        src="<%= user.profilepic %>"
+        alt="Profile Picture"
+        class="profile-pic"
+      />
+      <div class="user-info">
+        <h2><%= user.name %> <%= user.surname %></h2>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Course:</strong> <%= user.course %></p>
+        <p><strong>Semester:</strong> <%= user.semester %></p>
+        <p><strong>Roll No:</strong> <%= user.rollno %></p>
+        <p>
+          <strong>Status:</strong>
+          <span class="status <%= user.status %>"><%= user.status %></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="user-actions">
+      <form
+        action="/admin/statusapproved/<%= user._id %>?method=PATCH"
+        method="POST"
+      >
+        <button class="btn approve-btn" type="submit">✅ Approve</button>
+      </form>
+      <form
+        action="/admin/statusrejected/<%= user._id %>?method=PATCH"
+        method="POST"
+      >
+        <button class="btn reject-btn" type="submit">❌ Reject</button>
+      </form>
+    </div>
+  </div>
+</div>

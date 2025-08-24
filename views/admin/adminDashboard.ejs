@@ -1,0 +1,39 @@
+<div class="container-d">
+  <h1>📋 Pending Student Requests</h1>
+
+  <% if (pendingUser.length === 0) { %>
+  <div class="empty">
+    <p>No pending requests 🎉</p>
+  </div>
+  <% } else { %>
+  <div class="requests">
+    <% pendingUser.forEach((user) => { %>
+    <div class="card">
+      <div class="card-header">
+        <h2><%= user.name %> <%= user.surname %></h2>
+        <span class="status <%= user.status %>"><%= user.status %></span>
+      </div>
+      <div class="card-body">
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Course:</strong> <%= user.course %></p>
+        <p><strong>Semester:</strong> <%= user.semester %></p>
+      </div>
+      <div class="card-actions">
+        <!-- View full details -->
+        <form action="/admin/getuser/<%= user._id %>" method="GET">
+          <button class="btn view-btn" type="submit">👀 View Details</button>
+        </form>
+        <!-- Approve -->
+        <form action="/admin/statusapproved/<%= user._id %>" method="POST">
+          <button class="btn approve-btn" type="submit">✅ Approve</button>
+        </form>
+        <!-- Reject -->
+        <form action="/admin/statusrejected/<%= user._id %>" method="POST">
+          <button class="btn reject-btn" type="submit">❌ Reject</button>
+        </form>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>

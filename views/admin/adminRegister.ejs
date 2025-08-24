@@ -1,0 +1,63 @@
+<!-- <div class="container">
+  <h2>Admin Registration</h2>
+  <form action="/admin/register" method="POST">
+    <input type="text" name="name" placeholder="first Name" required />
+    <input type="text" name="surname" placeholder="last Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <label>
+      <input type="radio" name="role" value="admin" id="role" required />
+      Admin
+    </label>
+
+    <input
+      type="password"
+      name="password"
+      id="password"
+      required
+      placeholder="Enter Password"
+    />
+    <label for="viewPassword">view password</label>
+    <input type="checkbox" name="viewPassword" id="viewPassword" />
+    <button type="submit">Register</button>
+  </form>
+</div> -->
+<div class="form-container">
+  <h2>Admin Registration</h2>
+  <form action="/admin/register" method="POST" class="registration-form">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="First Name" required />
+    </div>
+
+    <div class="form-group">
+      <input type="text" name="surname" placeholder="Last Name" required />
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Email" required />
+    </div>
+
+    <div class="form-group role">
+      <label>
+        <input type="radio" name="role" value="admin" required />
+        Admin
+      </label>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Enter Password"
+        required
+      />
+      <label for="viewPassword" class="view-password-label">
+        <input type="checkbox" id="viewPassword" /> Show Password
+      </label>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn-submit">Register</button>
+    </div>
+  </form>
+</div>

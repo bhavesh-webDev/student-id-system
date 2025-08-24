@@ -1,0 +1,126 @@
+<!-- <div class="container">
+  <h1>User Login</h1>
+  <form action="/user/login" method="POST">
+    <input type="email" name="email" id="email" required />
+    <input type="password" name="password" id="password" required />
+    <button type="submit">login</button>
+  </form>
+</div> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #6dd5ed, #2193b0);
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        text-align: center;
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      .login-container h1 {
+        margin-bottom: 25px;
+        font-size: 26px;
+        color: #333;
+      }
+
+      .login-container input {
+        width: 100%;
+        padding: 12px;
+        margin: 12px 0;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+
+      .login-container input:focus {
+        border-color: #2193b0;
+        outline: none;
+        box-shadow: 0 0 6px rgba(33, 147, 176, 0.5);
+      }
+
+      .login-container button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #2193b0;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background 0.3s ease;
+      }
+
+      .login-container button:hover {
+        background: #176d7a;
+      }
+
+      .login-container p {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .login-container a {
+        color: #2193b0;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .login-container a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>User Login</h1>
+      <form action="/user/login" method="POST">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="/user/register">Register</a></p>
+    </div>
+  </body>
+</html>

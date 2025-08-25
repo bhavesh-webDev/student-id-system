@@ -3,7 +3,7 @@ export const isUser = async (req, res, next) => {
     if (req.user && req.user.role !== "student") {
       return res.status(403).json({
         status: 403,
-        message: "Un-Authorized Access",
+        message: "Un-Authorized Access only Students can login ",
         success: false,
       });
     }

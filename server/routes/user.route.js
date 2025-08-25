@@ -14,6 +14,7 @@ import {
 import multer from "multer";
 import { authMiddleware } from "../../middleware/auth.middleware.js";
 import { isUser } from "../../middleware/user.middleware.js";
+import { isApproved } from "../../middleware/isApproved.middleware.js";
 
 // Configure storage
 const storage = multer.diskStorage({
@@ -46,7 +47,12 @@ Router.route("/register")
 // USER LOGIN ROUTE
 Router.route("/login").get(userLogin).post(userLoginController);
 // USER DASHBOARD ROUTE
-Router.route("/dashboard/:id").get(authMiddleware, isUser, getUserDashboard);
+Router.route("/dashboard/:id").get(
+  authMiddleware,
+  isUser,
+  isApproved,
+  getUserDashboard
+);
 // USER LOGOUT ROUTE
 Router.route("/logout").post(logout);
 

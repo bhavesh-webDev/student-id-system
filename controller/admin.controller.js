@@ -18,7 +18,16 @@ export const adminDashboard = async (req, res) => {
         success: false,
       });
     }
+    const allUsers = await userModel.find();
+    if (!allUsers) {
+      return res.status(404).json({
+        status: 404,
+        message: "Users Not Found ",
+        success: false,
+      });
+    }
     res.render("admin/adminDashboard", {
+      allUsers,
       pendingUser: pendingUser,
       hide: false,
       loggedin: true,
@@ -61,7 +70,12 @@ export const getSingleUser = async (req, res) => {
         success: false,
       });
     }
-    res.render("admin/singlePost", { user, hide: false });
+    res.render("admin/singlePost", {
+      user,
+      hide: false,
+      loggedin: true,
+      role: "admin",
+    });
   } catch (error) {
     res.status(500).json({
       status: 500,
@@ -170,4 +184,13 @@ export const logout = (req, res) => {
       error: error.message,
     });
   }
+};
+
+export const getAllUsers = async (req, res) => {
+  res.render("admin/adminDashboard", {
+    allUsers,
+    hide: false,
+    loggedin: true,
+    role: "admin",
+  });
 };

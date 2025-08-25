@@ -3,6 +3,7 @@ import {
   adminDashboard,
   adminLogin,
   getAdminRegister,
+  getAllUsers,
   getSingleUser,
   // redirectDashboard,
   // redirectToLogin,

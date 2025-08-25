@@ -6,6 +6,7 @@ import adminRoute from "./server/routes/admin.route.js";
 import expressEjsLayouts from "express-ejs-layouts";
 import { connectDb } from "./server/config/db.connect.js";
 import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+app.use(cookieParser());
 
 //layouts
 

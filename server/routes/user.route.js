@@ -2,16 +2,18 @@ import express from "express";
 import {
   userLogin,
   userRegister,
-  loginRedirectToDashboard,
   getUserDashboard,
+  logout,
 } from "../../controller/user.controller.js";
 
 import {
   registerController,
-  loginController,
+  userLoginController,
 } from "../../auth/auth.controller.js";
 
 import multer from "multer";
+import { authMiddleware } from "../../middleware/auth.middleware.js";
+import { isUser } from "../../middleware/user.middleware.js";
 
 // Configure storage
 const storage = multer.diskStorage({
@@ -41,9 +43,11 @@ const Router = express.Router();
 Router.route("/register")
   .get(userRegister)
   .post(upload.single("profilepic"), registerController);
+// USER LOGIN ROUTE
+Router.route("/login").get(userLogin).post(userLoginController);
+// USER DASHBOARD ROUTE
+Router.route("/dashboard/:id").get(authMiddleware, isUser, getUserDashboard);
+// USER LOGOUT ROUTE
+Router.route("/logout").post(logout);
 
-Router.route("/login")
-  .get(userLogin)
-  .post(loginController, loginRedirectToDashboard);
-Router.route("/dashboard/:id").get(getUserDashboard);
 export default Router;

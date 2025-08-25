@@ -14,18 +14,47 @@
       <h1>Student ID System</h1>
     </div>
 
-    <nav class="nav-links">
-      <ul>
-        <li><a href="/admin/dashboard">Dashboard</a></li>
-        <li><a href="/admin/register">Add Admin</a></li>
-        <li><a href="/user/register">Student Registration</a></li>
-        <li><a href="/user/login">Student Login</a></li>
-      </ul>
-    </nav>
-
     <div class="user-actions">
-      <a href="/admin/login" class="btn login-btn">Admin Login</a>
-      <a href="/user/login" class="btn login-btn">Student Login</a>
+      <% if (loggedin && role =="admin") { %>
+
+      <nav class="nav-links">
+        <ul>
+          <ul>
+            <form action="/admin/dashboard" method="GET">
+              <button class="btn login-btn" type="submit">Dashboard</button>
+            </form>
+          </ul>
+
+          <li>
+            <form action="/admin/register" method="GET">
+              <button class="btn login-btn" type="submit">Add Admin</button>
+            </form>
+          </li>
+          <li>
+            <form action="/user/register" method="GET">
+              <button class="btn login-btn" type="submit">
+                Student Registration
+              </button>
+            </form>
+          </li>
+
+          <li>
+            <form action="/user/login" method="GET">
+              <button class="btn login-btn" type="submit">Student Login</button>
+            </form>
+          </li>
+        </ul>
+      </nav>
+
+      <form action="/admin/logout" method="POST">
+        <button class="btn login-btn" type="submit">Admin logout</button>
+      </form>
+
+      <% } %> <% if (role=="student" && loggedin) { %>
+      <form action="/user/logout" method="POST">
+        <button class="btn login-btn" type="submit">Student logout</button>
+      </form>
+      <% }%>
     </div>
   </div>
 </header>

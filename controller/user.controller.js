@@ -8,18 +8,18 @@ export const userLogin = (req, res) => {
   res.render("users/userLogin", { hide: true });
 };
 //TO SEND USER TO THE USERS DASHBOARD PAGE
-export const loginRedirectToDashboard = async (req, res) => {
-  try {
-    res.redirect("/user/dashboard");
-  } catch (error) {
-    res.status(500).json({
-      status: 500,
-      message: "Error in User Dashboard controller...",
-      success: false,
-      error: error.message,
-    });
-  }
-};
+// export const loginRedirectToDashboard = async (req, res) => {
+//   try {
+//     res.redirect("/user/dashboard");
+//   } catch (error) {
+//     res.status(500).json({
+//       status: 500,
+//       message: "Error in User Dashboard controller...",
+//       success: false,
+//       error: error.message,
+//     });
+//   }
+// };
 export const getUserDashboard = async (req, res) => {
   const { id } = req.params;
   if (!id) {
@@ -37,5 +37,23 @@ export const getUserDashboard = async (req, res) => {
       success: false,
     });
   }
-  res.render("users/userDashboard");
+  res.render("users/userDashboard", {
+    user,
+    hide: false,
+    loggedin: true,
+    role: "student",
+  });
+};
+
+export const logout = (req, res) => {
+  try {
+    res.clearCookie("token"), res.redirect("/user/login");
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in logout controller...",
+      success: false,
+      error: error.message,
+    });
+  }
 };

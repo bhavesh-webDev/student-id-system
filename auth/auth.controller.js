@@ -79,7 +79,7 @@ export const registerController = async (req, res) => {
   }
 };
 
-export const loginController = async (req, res) => {
+export const userLoginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     console.log(req.body);
@@ -111,10 +111,8 @@ export const loginController = async (req, res) => {
       expiresIn: "2h",
     });
 
-    if (user.role === "Admin" || user.role === "admin") {
-      return res.redirect("/admin/dashboard");
-    }
-    res.render("users/userDashboard");
+    res.cookie("token", token, { httpOnly: true });
+    res.redirect(`/user/dashboard/${user._id}`);
     // // user.password = undefined;
     // res.status(200).json({
     //   status: 200,

@@ -5,34 +5,44 @@ import {
   getAdminRegister,
   getSingleUser,
   // redirectDashboard,
-  redirectToLogin,
+  // redirectToLogin,
   statusApproved,
   statusRejected,
 } from "../../controller/admin.controller.js";
-import {
-  loginController,
-  registerController,
-} from "../../auth/auth.controller.js";
+import { registerController } from "../../auth/auth.controller.js";
+import { isAdmin } from "../../middleware/admin.middleware.js";
+import { authMiddleware } from "../../middleware/auth.middleware.js";
+import { logout } from "../../controller/admin.controller.js";
+import { adminLoginController } from "../../auth/admin.loginController.js";
 const Router = express.Router();
-
-// login
-Router.route("/login").get(adminLogin).post(loginController);
 
 // register
 Router.route("/register")
-  .get(getAdminRegister)
-  .post(registerController, redirectToLogin);
+  .get(authMiddleware, isAdmin, getAdminRegister)
+  .post(registerController);
+
+// login
+Router.route("/login").get(adminLogin).post(adminLoginController);
 
 // to get all. the pending students
-Router.route("/dashboard").get(adminDashboard);
+Router.route("/dashboard").get(authMiddleware, isAdmin, adminDashboard);
 
 // to get a single student
-Router.route("/getuser/:id").get(getSingleUser);
+Router.route("/getuser/:id").get(authMiddleware, isAdmin, getSingleUser);
 
 //to approve students
-Router.route("/statusapproved/:id").post(statusApproved);
+Router.route("/statusapproved/:id").post(
+  authMiddleware,
+  isAdmin,
+  statusApproved
+);
 
 //to reject students
-Router.route("/statusrejected/:id").post(statusRejected);
+Router.route("/statusrejected/:id").post(
+  authMiddleware,
+  isAdmin,
+  statusRejected
+);
+Router.route("/logout").post(logout);
 
 export default Router;

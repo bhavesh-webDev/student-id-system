@@ -21,6 +21,8 @@ export const adminDashboard = async (req, res) => {
     res.render("admin/adminDashboard", {
       pendingUser: pendingUser,
       hide: false,
+      loggedin: true,
+      role: "admin",
     });
   } catch (error) {
     res.status(500).json({
@@ -153,6 +155,19 @@ export const statusRejected = async (req, res) => {
   }
 };
 // TO REDIRECT TO LOGIN PAGE
-export const redirectToLogin = (req, res) => {
-  res.redirect("admin/loginAdmin", { hide: true });
+// export const redirectToLogin = (req, res) => {
+//   res.redirect("admin/loginAdmin", { hide: true });
+// };
+export const logout = (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.redirect("/admin/login");
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Logout controller",
+      success: false,
+      error: error.message,
+    });
+  }
 };

@@ -34,6 +34,11 @@
       </div>
     </div>
     <% }) %>
+    <form action="/admin/getAllPendingUsers" method="GET">
+      <button class="btn-submit" type="submit">
+        Get All Pending User Requests
+      </button>
+    </form>
   </div>
   <% } %>
   <div class="container-d">
@@ -60,5 +65,11 @@
         </tbody>
       </table>
     </div>
+    <form action="/admin/getAllApprovedUsers" method="GET">
+      <br />
+      <button class="btn-submit" type="submit">
+        get All Approved User Requests
+      </button>
+    </form>
   </div>
 </div>

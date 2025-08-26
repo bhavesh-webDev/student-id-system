@@ -7,10 +7,13 @@ export const adminLogin = async (req, res) => {
 //TO GET ADMINS DASHBOARD
 export const adminDashboard = async (req, res) => {
   try {
-    const pendingUser = await userModel.find({
-      role: "student",
-      status: "pending",
-    });
+    const pendingUser = await userModel
+      .find({
+        role: "student",
+        status: "pending",
+      })
+      .sort({ createdAt: -1 })
+      .limit(5);
     if (pendingUser.length === 0) {
       return res.status(404).json({
         status: 404,
@@ -18,7 +21,10 @@ export const adminDashboard = async (req, res) => {
         success: false,
       });
     }
-    const allUsers = await userModel.find();
+    const allUsers = await userModel
+      .find({ status: "approved" })
+      .sort({ createdAt: -1 })
+      .limit(5);
     if (!allUsers) {
       return res.status(404).json({
         status: 404,
@@ -47,10 +53,7 @@ export const adminDashboard = async (req, res) => {
 export const getAdminRegister = (req, res) => {
   res.render("admin/adminRegister", { hide: true });
 };
-// //TO REDIRECT TO THE ADMIN DASHBOARD
-// export const redirectDashboard = async (req, res) => {
-//   res.redirect("admin/adminDashboard");
-// };
+
 //TO GET A SINGLE USER
 export const getSingleUser = async (req, res) => {
   try {
@@ -168,10 +171,7 @@ export const statusRejected = async (req, res) => {
     });
   }
 };
-// TO REDIRECT TO LOGIN PAGE
-// export const redirectToLogin = (req, res) => {
-//   res.redirect("admin/loginAdmin", { hide: true });
-// };
+//TO LOGOUT AS ADMIN
 export const logout = (req, res) => {
   try {
     res.clearCookie("token");
@@ -185,12 +185,61 @@ export const logout = (req, res) => {
     });
   }
 };
-
-export const getAllUsers = async (req, res) => {
-  res.render("admin/adminDashboard", {
-    allUsers,
-    hide: false,
-    loggedin: true,
-    role: "admin",
-  });
+// TO FETCH ALL THE APPROVED STUDENTS
+export const getAllApprovedUsers = async (req, res) => {
+  try {
+    const allUsers = await userModel.find({
+      status: "approved",
+      role: "student",
+    });
+    if (!allUsers) {
+      return res.status(404).json({
+        status: 404,
+        message: "Users Not Found ",
+        success: false,
+      });
+    }
+    res.render("admin/getAllApproved", {
+      allUsers,
+      hide: false,
+      loggedin: true,
+      role: "admin",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in get All Approved users Controller",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+// TO FETCH ALL THE PENDING STUDENTS
+export const getAllPendingUsers = async (req, res) => {
+  try {
+    const pendingUsers = await userModel.find({
+      status: "pending",
+      role: "student",
+    });
+    if (pendingUsers.length === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: "No Request Pending",
+        success: false,
+      });
+    }
+    res.render("admin/getAllPending", {
+      role: "admin",
+      loggedin: true,
+      hide: false,
+      pendingUsers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Get All Pending Requests Controller...",
+      success: false,
+      error: error.message,
+    });
+  }
 };

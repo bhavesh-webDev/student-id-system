@@ -3,12 +3,11 @@ import {
   adminDashboard,
   adminLogin,
   getAdminRegister,
-  getAllUsers,
+  getAllApprovedUsers,
   getSingleUser,
-  // redirectDashboard,
-  // redirectToLogin,
   statusApproved,
   statusRejected,
+  getAllPendingUsers,
 } from "../../controller/admin.controller.js";
 import { registerController } from "../../auth/auth.controller.js";
 import { isAdmin } from "../../middleware/admin.middleware.js";
@@ -31,6 +30,17 @@ Router.route("/dashboard").get(authMiddleware, isAdmin, adminDashboard);
 // to get a single student
 Router.route("/getuser/:id").get(authMiddleware, isAdmin, getSingleUser);
 
+Router.route("/getAllApprovedUsers").get(
+  authMiddleware,
+  isAdmin,
+  getAllApprovedUsers
+);
+
+Router.route("/getAllPendingUsers").get(
+  authMiddleware,
+  isAdmin,
+  getAllPendingUsers
+);
 //to approve students
 Router.route("/statusapproved/:id").post(
   authMiddleware,

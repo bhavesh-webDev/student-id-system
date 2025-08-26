@@ -1,0 +1,30 @@
+<div class="container-d">
+  <h2 class="title">All Pending Student Records</h2>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Status</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% pendingUsers.forEach(user => { %>
+      <tr>
+        <td><%= user.name %></td>
+        <td>
+          <span class="status <%= user.status.toLowerCase() %>">
+            <%= user.status %>
+          </span>
+        </td>
+        <td>
+          <form action="/admin/getuser/<%= user._id %>" method="GET">
+            <button class="btn-submit" type="submit">👀 view details</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

@@ -34,6 +34,9 @@ app.set("layout", "./layouts/main");
 app.use("/uploads", express.static("uploads"));
 app.use("/user", userRoute);
 app.use("/admin", adminRoute);
+app.get("/", (req, res) => {
+  res.redirect("/user/login");
+});
 
 app.listen(port, () => {
   console.log(`listening ${port}`);

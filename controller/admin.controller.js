@@ -44,7 +44,7 @@ export const adminDashboard = async (req, res) => {
       status: 500,
       message: "Error in loading Pending Requests ...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -84,7 +84,7 @@ export const getSingleUser = async (req, res) => {
       status: 500,
       message: "Error in Get Single User controller...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -125,7 +125,7 @@ export const statusApproved = async (req, res) => {
       status: 500,
       message: "Error in admins approve status controller...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -167,7 +167,7 @@ export const statusRejected = async (req, res) => {
       status: 500,
       message: "Error in admins Reject status controller ...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -181,7 +181,7 @@ export const logout = (req, res) => {
       status: 500,
       message: "Error in Logout controller",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -210,7 +210,7 @@ export const getAllApprovedUsers = async (req, res) => {
       status: 500,
       message: "Error in get All Approved users Controller",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -239,7 +239,7 @@ export const getAllPendingUsers = async (req, res) => {
       status: 500,
       message: "Error in Get All Pending Requests Controller...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

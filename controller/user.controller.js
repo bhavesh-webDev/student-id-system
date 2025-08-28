@@ -53,7 +53,7 @@ export const logout = (req, res) => {
       status: 500,
       message: "Error in logout controller...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

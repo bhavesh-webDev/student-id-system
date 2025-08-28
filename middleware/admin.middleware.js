@@ -13,7 +13,7 @@ export const isAdmin = async (req, res, next) => {
       status: 500,
       message: "Error in admin middleware...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

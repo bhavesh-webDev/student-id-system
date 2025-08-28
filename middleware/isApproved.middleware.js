@@ -13,7 +13,7 @@ export const isApproved = (req, res, next) => {
       status: 500,
       message: "Error in Is Approved middleware ",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

@@ -29,7 +29,7 @@ export const authMiddleware = async (req, res, next) => {
       status: 500,
       message: "Error in Auth Middleware ...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

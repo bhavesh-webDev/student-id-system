@@ -13,7 +13,7 @@ export const isUser = async (req, res, next) => {
       status: 500,
       message: "Error in user middleware...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

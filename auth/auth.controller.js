@@ -66,7 +66,7 @@ export const registerController = async (req, res) => {
         status: 500,
         message: "Error While Creating User",
         success: false,
-        error: error.message,
+        error: error.stack,
       });
     }
   } catch (error) {
@@ -74,7 +74,7 @@ export const registerController = async (req, res) => {
       status: 500,
       message: "Error in register Controller",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };
@@ -126,7 +126,7 @@ export const userLoginController = async (req, res) => {
       status: 500,
       message: "Error in Login Controller...",
       success: false,
-      error: error.message,
+      error: error.stack,
     });
   }
 };

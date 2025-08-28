@@ -30,7 +30,7 @@ export const registerController = async (req, res) => {
         success: false,
       });
     }
-    const saltRound = process.env.HASH_SALT;
+    const saltRound = 10;
     const hassedPassword = await bcrypt.hash(password, saltRound);
 
     try {

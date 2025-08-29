@@ -98,6 +98,9 @@
           transform: translateY(0);
         }
       }
+      .viewPassword {
+        width: fit-content;
+      }
     </style>
   </head>
   <body>
@@ -118,6 +121,11 @@
           placeholder="Enter Password"
           required
         />
+        <label class="view-password-label" style="margin: 0px; padding: 0">
+          <input type="checkbox" id="viewPassword" />
+          Show Password
+        </label>
+
         <button type="submit">Login</button>
       </form>
       <p>Don't have an account? <a href="/user/register">Register</a></p>

@@ -4,13 +4,14 @@ import {
   userRegister,
   getUserDashboard,
   logout,
+  getUpdateUserForm,
+  updateUserData,
 } from "../../controller/user.controller.js";
 
 import {
   registerController,
   userLoginController,
 } from "../../auth/auth.controller.js";
-
 import multer from "multer";
 import { authMiddleware } from "../../middleware/auth.middleware.js";
 import { isUser } from "../../middleware/user.middleware.js";
@@ -53,6 +54,9 @@ Router.route("/dashboard/:id").get(
   isApproved,
   getUserDashboard
 );
+Router.route("/updateprofile/:id")
+  .get(authMiddleware, isUser, getUpdateUserForm)
+  .patch(authMiddleware, isUser, isApproved, updateUserData);
 // USER LOGOUT ROUTE
 Router.route("/logout").post(logout);
 

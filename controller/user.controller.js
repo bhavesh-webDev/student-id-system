@@ -1,4 +1,5 @@
 import userModel from "../server/models/user.model.js";
+import bcrypt from "bcrypt";
 //GET USERS REGISTER PAGE
 export const userRegister = async (req, res) => {
   res.render("users/userRegister", { hide: true });
@@ -20,6 +21,82 @@ export const userLogin = (req, res) => {
 //     });
 //   }
 // };
+export const getUpdateUserForm = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("ID : ", id);
+    if (!id) {
+      return res.status(404).json({
+        status: 404,
+        message: "ID not found",
+        success: false,
+      });
+    }
+    const user = await userModel.findById(id);
+
+    res.render("users/userUpdate", {
+      hide: false,
+      loggedin: true,
+      role: "student",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Get Update Form Controller...",
+      success: false,
+      error: error.stack,
+    });
+  }
+};
+export const updateUserData = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // console.log(id);
+    console.log("REQ iD", req.user.id);
+    if (req.user.id !== id) {
+      return res.status(401).json({
+        status: 401,
+        message: "Un-Authorized Access",
+        success: false,
+      });
+    }
+    const user = await userModel.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User Not Found...",
+        success: false,
+      });
+    }
+    const { email, password, newpassword } = req.body;
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        status: 401,
+        message: "Provided old password Does not match Existing Password",
+        success: false,
+      });
+    }
+    const hashpassword = await bcrypt.hash(newpassword, 10);
+    if (email) user.email = email;
+    if (newpassword) user.password = hashpassword;
+    await user.save();
+    res.status(200).json({
+      status: 200,
+      message: "Credentials Updated Successfully...",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Update User Data Controller...",
+      success: false,
+      error: error.stack,
+    });
+  }
+};
+
 export const getUserDashboard = async (req, res) => {
   const { id } = req.params;
   if (!id) {

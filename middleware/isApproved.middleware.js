@@ -1,4 +1,4 @@
-export const isApproved = (req, res, next) => {
+export const isApproved = async (req, res, next) => {
   try {
     if (req.user.status !== "approved") {
       return res.status(403).json({

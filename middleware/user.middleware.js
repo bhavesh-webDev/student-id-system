@@ -1,3 +1,5 @@
+// import userModel from "../server/models/user.model.js";
+
 export const isUser = async (req, res, next) => {
   try {
     if (req.user && req.user.role !== "student") {

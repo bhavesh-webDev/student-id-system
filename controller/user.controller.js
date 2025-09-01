@@ -8,19 +8,7 @@ export const userRegister = async (req, res) => {
 export const userLogin = (req, res) => {
   res.render("users/userLogin", { hide: true });
 };
-//TO SEND USER TO THE USERS DASHBOARD PAGE
-// export const loginRedirectToDashboard = async (req, res) => {
-//   try {
-//     res.redirect("/user/dashboard");
-//   } catch (error) {
-//     res.status(500).json({
-//       status: 500,
-//       message: "Error in User Dashboard controller...",
-//       success: false,
-//       error: error.message,
-//     });
-//   }
-// };
+
 export const getUpdateUserForm = async (req, res) => {
   try {
     const { id } = req.params;
@@ -122,6 +110,19 @@ export const getUserDashboard = async (req, res) => {
   });
 };
 
+export const resetPasswordPage = (req, res) => {
+  try {
+    res.render("users/resetPassword", { hide: true, loggedin: false });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Reset Password Page...",
+      success: false,
+      error: error.stack,
+    });
+  }
+};
+
 export const logout = (req, res) => {
   try {
     res.clearCookie("token"), res.redirect("/user/login");
@@ -129,6 +130,51 @@ export const logout = (req, res) => {
     res.status(500).json({
       status: 500,
       message: "Error in logout controller...",
+      success: false,
+      error: error.stack,
+    });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, newpassword, answer } = req.body;
+    console.log(req.body);
+
+    if (!email || !newpassword || !answer) {
+      return res.status(401).json({
+        status: 401,
+        message: "All Fields Are Required ...",
+        success: false,
+      });
+    }
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "No User Found with this Email...",
+        success: false,
+      });
+    }
+    if (answer !== user.answer) {
+      return res.status(400).json({
+        status: 400,
+        message: "Answer Does not match...",
+        success: false,
+      });
+    }
+    const hashedPassword = await bcrypt.hash(newpassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+      status: 200,
+      message: "User Password Reset Successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Reset Password Controller...",
       success: false,
       error: error.stack,
     });

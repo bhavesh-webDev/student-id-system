@@ -1,4 +1,5 @@
 import userModel from "../server/models/user.model.js";
+import { sendEmail } from "../public/js/nodemailer.js";
 //TO GET ADMINS LOGIN PAGE
 export const adminLogin = async (req, res) => {
   res.render("admin/loginAdmin", { hide: true });
@@ -115,6 +116,12 @@ export const statusApproved = async (req, res) => {
         success: false,
       });
     }
+    const user = await userModel.findById(id);
+    let email = user.email;
+    let headMessage = "Application Status Updated ";
+    let subject = "Approval of Application";
+    let mainMessage = `hello ${user.name} your registration was Approved by the admin you can now login using your login credentials .`;
+    sendEmail(email, headMessage, subject, mainMessage);
     res.status(200).json({
       status: 200,
       message: "Student Approved...",
@@ -157,6 +164,26 @@ export const statusRejected = async (req, res) => {
         success: false,
       });
     }
+    const user = await userModel.findById(id);
+    let email = user.email;
+    let headMessage = "Application Status Updated ";
+    let subject = "Rejection of Application";
+    let mainMessage = `hello ${user.name} your registration was rejected by the admin you can re-register after 24 Hours .`;
+    sendEmail(email, headMessage, subject, mainMessage);
+
+    setTimeout(async () => {
+      try {
+        const reApply = await userModel.findByIdAndDelete(id);
+        // console.log("RE-APPLY", reApply);
+      } catch (error) {
+        res.status(500).json({
+          status: 500,
+          message: "Error while update status to Re-Apply",
+          success: false,
+          error: error.stack,
+        });
+      }
+    }, 1000 * 60 * 60 * 24);
     res.status(200).json({
       status: 200,
       message: "Student Rejected...",

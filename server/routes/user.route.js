@@ -6,6 +6,8 @@ import {
   logout,
   getUpdateUserForm,
   updateUserData,
+  resetPasswordPage,
+  resetPassword,
 } from "../../controller/user.controller.js";
 
 import {
@@ -45,6 +47,7 @@ const Router = express.Router();
 Router.route("/register")
   .get(userRegister)
   .post(upload.single("profilepic"), registerController);
+
 // USER LOGIN ROUTE
 Router.route("/login").get(userLogin).post(userLoginController);
 // USER DASHBOARD ROUTE
@@ -54,9 +57,13 @@ Router.route("/dashboard/:id").get(
   isApproved,
   getUserDashboard
 );
+
 Router.route("/updateprofile/:id")
   .get(authMiddleware, isUser, getUpdateUserForm)
   .patch(authMiddleware, isUser, isApproved, updateUserData);
+
+Router.route("/forgotpassword").get(resetPasswordPage).patch(resetPassword);
+
 // USER LOGOUT ROUTE
 Router.route("/logout").post(logout);
 

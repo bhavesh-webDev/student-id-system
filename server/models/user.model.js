@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema(
       enum: ["pending", "rejected", "approved"],
       default: "pending",
     },
+    answer: {
+      type: String,
+      required: [true, "Answer for the Question is required..."],
+    },
   },
   { timestamps: true }
 );

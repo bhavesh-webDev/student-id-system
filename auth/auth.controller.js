@@ -14,6 +14,7 @@ export const registerController = async (req, res) => {
       profilepic,
       role,
       password,
+      answer,
     } = req.body;
     if (!name || !surname || !email || !role || !password) {
       return res.status(400).json({
@@ -44,6 +45,7 @@ export const registerController = async (req, res) => {
         profilepic,
         role,
         password: hassedPassword,
+        answer,
       });
       if (role === "admin" || role === "Admin") {
         return res.render(

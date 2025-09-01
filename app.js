@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
+import { configDotenv } from "dotenv";
+configDotenv();
 import express, { urlencoded } from "express";
 import userRoute from "./server/routes/user.route.js";
 import adminRoute from "./server/routes/admin.route.js";

@@ -4,8 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     profilepic: {
       type: String,
-      default:
-        "https://img.freepik.com/free-vector/illustration-b…52c222990c9f36d56bbe7f373db02f83944151fd56&w=2000",
+      default: "https://cdn-icons-png.flaticon.com/512/10337/10337609.png",
     },
     name: {
       type: String,

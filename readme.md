@@ -23,5 +23,8 @@ FUNCTIONALITY TO ADD -
 4. ADD FUNCTIONALITY OF RESET PASSWORD ✅.
 5. SEND EMAIL TO THE STUDENT AFTER APPROVAL OR REJECTION ✅.
 6. QR CODE FOR STUDENTS .
+7. SEARCH AND FILTER STUDENTS.
 
 LIVE LINK - https://student-id-system-1.onrender.com
+
+working on edit button in single post page

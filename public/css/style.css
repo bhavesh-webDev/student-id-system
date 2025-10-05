@@ -1,8 +1,8 @@
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
 body {
   font-family: Arial, sans-serif;
@@ -83,27 +83,27 @@ body {
   font-weight: bold;
 }
 
-.view-btn {
+#view-btn {
   background: #007bff;
   color: white;
 }
-.view-btn:hover {
+#view-btn:hover {
   background: #0069d9;
 }
 
-.approve-btn {
+#approve-btn {
   background: #28a745;
   color: white;
 }
-.approve-btn:hover {
+#approve-btn:hover {
   background: #218838;
 }
 
-.reject-btn {
+#reject-btn {
   background: #dc3545;
   color: white;
 }
-.reject-btn:hover {
+#reject-btn:hover {
   background: #c82333;
 }
 /* admin dashboard */

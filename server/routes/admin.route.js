@@ -8,6 +8,7 @@ import {
   statusApproved,
   statusRejected,
   getAllPendingUsers,
+  searchFilter,
 } from "../../controller/admin.controller.js";
 import { registerController } from "../../auth/auth.controller.js";
 import { isAdmin } from "../../middleware/admin.middleware.js";
@@ -54,6 +55,9 @@ Router.route("/statusrejected/:id").post(
   isAdmin,
   statusRejected
 );
+
+Router.route("/q").get(searchFilter);
+
 Router.route("/logout").post(logout);
 
 export default Router;

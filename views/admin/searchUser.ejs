@@ -1,0 +1,23 @@
+<div><h1><%= result.name %></h1></div>
+<div class="d-flex p-10 flex-wrap gap-4">
+  <% for( let i = 0; i < result.length; i++ ) { %>
+  <div class="card" style="width: 18rem">
+    <div class="img w-150 h-150">
+      <img src="<%= result[i].profilepic %>" class="card-img-top" alt="..." />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= result[i]._id %></h5>
+      <p class="card-text"><%= result[i].surname %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= result[i].name %></li>
+      <li class="list-group-item"><%= result[i].email %></li>
+      <li class="list-group-item"><%= result[i].course %></li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+  <% } %>
+</div>

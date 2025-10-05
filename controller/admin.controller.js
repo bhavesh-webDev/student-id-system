@@ -1,5 +1,6 @@
 import userModel from "../server/models/user.model.js";
 import { sendEmail } from "../public/js/nodemailer.js";
+import { name } from "ejs";
 //TO GET ADMINS LOGIN PAGE
 export const adminLogin = async (req, res) => {
   res.render("admin/loginAdmin", { hide: true });
@@ -33,6 +34,13 @@ export const adminDashboard = async (req, res) => {
         success: false,
       });
     }
+    res.setHeader(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+    res.setHeader("Pragma", "no-cache");
+    // res.setHeader("Expires", "0");
+    // res.setHeader("Surrogate-Control", "no-store");
     res.render("admin/adminDashboard", {
       allUsers,
       pendingUser: pendingUser,
@@ -265,6 +273,40 @@ export const getAllPendingUsers = async (req, res) => {
     res.status(500).json({
       status: 500,
       message: "Error in Get All Pending Requests Controller...",
+      success: false,
+      error: error.stack,
+    });
+  }
+};
+
+export const searchFilter = async (req, res) => {
+  try {
+    const { search } = req.query;
+    const result = await userModel.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+      ],
+    });
+    console.log(result);
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        message: "No Record Found",
+        success: false,
+      });
+    }
+    res.render("admin/searchUser", {
+      loggedin: true,
+      hide: false,
+      result: result,
+      role: "admin",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error in Search filter Controller...",
       success: false,
       error: error.stack,
     });
